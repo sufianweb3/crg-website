@@ -52,7 +52,8 @@ export function AccordionItem({ id, question, answer, defaultOpen = false }: Acc
           {question}
         </span>
         <svg
-          className={`flex-shrink-0 w-5 h-5 text-peach-black-70 transition-transform duration-300 ease-in-out ${isOpen ? "rotate-180" : ""}`}
+          className={`flex-shrink-0 w-5 h-5 text-peach-black-70 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          style={{ transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -66,10 +67,11 @@ export function AccordionItem({ id, question, answer, defaultOpen = false }: Acc
         id={`${id}-content`}
         role="region"
         aria-labelledby={`${id}-trigger`}
-        className="overflow-hidden transition-all duration-300 ease-in-out"
+        className="overflow-hidden"
         style={{
           maxHeight: isOpen ? `${contentHeight}px` : "0",
           opacity: isOpen ? 1 : 0,
+          transition: `max-height 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms cubic-bezier(0.23, 1, 0.32, 1)`,
         }}
       >
         <div

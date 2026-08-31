@@ -17,7 +17,7 @@ interface StaggerRevealProps {
 export function StaggerReveal({
   children,
   delay = 0,
-  duration = 500,
+  duration = 300,
   className = "",
   tag = "div",
   threshold = 0.1,
@@ -27,7 +27,6 @@ export function StaggerReveal({
 }: StaggerRevealProps) {
   const elementRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -36,7 +35,6 @@ export function StaggerReveal({
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) {
       setIsVisible(true);
-      setHasAnimated(true);
       return;
     }
 
@@ -45,7 +43,6 @@ export function StaggerReveal({
         if (entry.isIntersecting) {
           setTimeout(() => {
             setIsVisible(true);
-            setHasAnimated(true);
           }, delay);
           if (once) {
             observer.unobserve(element);
@@ -70,15 +67,15 @@ export function StaggerReveal({
       {childArray.map((child, index) => {
         if (!React.isValidElement(child)) return child;
 
-        const childDelay = delay + index * 100;
+        const childDelay = delay + index * 50;
         const childDuration = duration;
 
         return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
           style: {
             ...((child.props as Record<string, unknown>).style as React.CSSProperties || {}),
             opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: `opacity ${childDuration}ms ease-out, transform ${childDuration}ms ease-out`,
+            transform: isVisible ? "translateY(0)" : "translateY(8px)",
+            transition: `opacity ${childDuration}ms cubic-bezier(0.23, 1, 0.32, 1), transform ${childDuration}ms cubic-bezier(0.23, 1, 0.32, 1)`,
             transitionDelay: `${childDelay}ms`,
           },
         });

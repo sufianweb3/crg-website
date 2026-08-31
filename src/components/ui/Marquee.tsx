@@ -108,7 +108,8 @@ export function Marquee({
               height={item.height}
               loading="lazy"
               decoding="async"
-              className="h-auto max-h-[60px] object-contain grayscale opacity-60 transition-opacity duration-300 hover:opacity-100"
+              className="h-auto max-h-[60px] object-contain grayscale opacity-60 transition-opacity duration-200"
+              style={{ transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }}
             />
           </div>
         ))}

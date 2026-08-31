@@ -25,9 +25,10 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled ? "bg-azure-mist/95 backdrop-blur-sm border-b border-hairline" : "bg-transparent"
       }`}
+      style={{ transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }}
       role="banner"
     >
       <nav className="section-container h-16 lg:h-20 flex items-center justify-between" aria-label="Main navigation">
@@ -51,7 +52,8 @@ export function Header() {
               <li key={section.id} role="none">
                 <a
                   href={`/#${section.id}`}
-                  className="text-peach-black-70 hover:text-peach-black transition-colors duration-200 underline-draw py-2"
+                  className="text-peach-black-70 transition-colors duration-160 underline-draw py-2"
+                  style={{ transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }}
                   role="menuitem"
                 >
                   {section.label}
@@ -71,7 +73,8 @@ export function Header() {
         <div className="lg:hidden flex items-center gap-4">
           <button
             type="button"
-            className="p-2 text-peach-black hover:text-peach-black-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist rounded"
+            className="p-2 text-peach-black transition-colors duration-160 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist rounded"
+            style={{ transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -90,7 +93,10 @@ export function Header() {
 
       <div
         id="mobile-menu"
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out bg-azure-mist border-t border-hairline ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+        className={`lg:hidden overflow-hidden bg-azure-mist border-t border-hairline ${mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+        style={{
+          transition: "max-height 200ms cubic-bezier(0.32, 0.72, 0, 1), opacity 200ms cubic-bezier(0.32, 0.72, 0, 1)",
+        }}
         role="navigation"
         aria-label="Mobile navigation"
       >
@@ -100,7 +106,8 @@ export function Header() {
               <li key={section.id} role="none">
                 <a
                   href={`/#${section.id}`}
-                  className="block py-3 text-peach-black-70 hover:text-peach-black transition-colors duration-200 border-b border-hairline"
+                  className="block py-3 text-peach-black-70 transition-colors duration-160 border-b border-hairline"
+                  style={{ transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }}
                   role="menuitem"
                   onClick={() => setMobileMenuOpen(false)}
                 >

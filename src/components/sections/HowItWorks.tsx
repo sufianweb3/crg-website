@@ -42,6 +42,8 @@ const steps: Step[] = [
   },
 ];
 
+const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+
 export function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -90,7 +92,7 @@ export function HowItWorks() {
     return (
       <section className="section-padding bg-azure-mist" aria-labelledby="how-it-works-heading">
         <div className="section-container">
-          <StaggerReveal delay={0} duration={500} tag="div" className="max-w-3xl">
+          <StaggerReveal delay={0} duration={300} tag="div" className="max-w-3xl">
             <p className="section-label">How It Works</p>
             <h2 id="how-it-works-heading" className="text-[clamp(32px,5vw,56px)] font-medium leading-[1.15] text-peach-black mt-2">
               A Clear Process, From First Inquiry to Final Shipment
@@ -102,12 +104,13 @@ export function HowItWorks() {
 
           <div className="mt-16 space-y-8" role="list">
             {steps.map((step, index) => (
-              <StaggerReveal key={step.number} delay={index * 100} duration={400} tag="article" className="group relative pl-12 pb-12 last:pb-0" role="listitem">
+              <StaggerReveal key={step.number} delay={index * 50} duration={300} tag="article" className="group relative pl-12 pb-12 last:pb-0" role="listitem">
                 <div className="absolute left-0 top-0">
                   <div
-                    className={`font-mono font-medium text-[clamp(40px,6vw,80px)] leading-none transition-all duration-500 ease-in-out ${
+                    className={`font-mono font-medium text-[clamp(40px,6vw,80px)] leading-none transition-all duration-200 ${
                       activeIndex === index ? "text-peach-black scale-110" : "text-peach-black-45"
                     }`}
+                    style={{ transitionTimingFunction: easeOut }}
                     aria-hidden="true"
                   >
                     {step.number}
@@ -115,10 +118,11 @@ export function HowItWorks() {
                   <div className="absolute left-[1.2em] top-[0.8em] bottom-0 w-px bg-hairline" aria-hidden="true">
                     {index < steps.length - 1 && (
                       <div
-                        className="absolute top-0 h-full w-full bg-peach-black transition-all duration-500 ease-in-out origin-top"
+                        className="absolute top-0 h-full w-full bg-peach-black transition-all duration-200 origin-top"
                         style={{
                           transform: `scaleY(${activeIndex > index ? 1 : 0})`,
                           transformOrigin: "top",
+                          transitionTimingFunction: easeOut,
                         }}
                         aria-hidden="true"
                       />
@@ -142,7 +146,7 @@ export function HowItWorks() {
   return (
     <section className="section-padding bg-azure-mist" aria-labelledby="how-it-works-heading">
       <div className="section-container">
-        <StaggerReveal delay={0} duration={500} tag="div" className="max-w-3xl">
+        <StaggerReveal delay={0} duration={300} tag="div" className="max-w-3xl">
           <p className="section-label">How It Works</p>
           <h2 id="how-it-works-heading" className="text-[clamp(32px,5vw,56px)] font-medium leading-[1.15] text-peach-black mt-2">
             A Clear Process, From First Inquiry to Final Shipment
@@ -164,25 +168,26 @@ export function HowItWorks() {
 
           <div className="flex items-start justify-between h-full px-4" style={{ transform: "translateX(-50%)", marginLeft: "50%" }}>
             {steps.map((step, index) => (
-              <StaggerReveal key={step.number} delay={index * 100} duration={400} tag="article" className="w-full px-4 relative" role="listitem">
+              <StaggerReveal key={step.number} delay={index * 50} duration={300} tag="article" className="w-full px-4 relative" role="listitem">
                 <div className="text-center">
                   <div
-                    className={`font-mono font-medium text-[clamp(40px,6vw,80px)] leading-none transition-all duration-500 ease-in-out mx-auto mb-4 ${
+                    className={`font-mono font-medium text-[clamp(40px,6vw,80px)] leading-none transition-all duration-200 mx-auto mb-4 ${
                       activeIndex === index ? "text-peach-black scale-110" : "text-peach-black-45"
                     }`}
+                    style={{ transitionTimingFunction: easeOut }}
                     aria-hidden="true"
                   >
                     {step.number}
                   </div>
                   <div className="max-w-xs mx-auto">
-                    <h3 className={`text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] transition-colors duration-300 ${
+                    <h3 className={`text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] transition-colors duration-200 ${
                       activeIndex === index ? "text-peach-black" : "text-peach-black-45"
-                    }`}>
+                    }`} style={{ transitionTimingFunction: easeOut }}>
                       {step.title}
                     </h3>
-                    <p className={`body-text mt-2 transition-colors duration-300 ${
+                    <p className={`body-text mt-2 transition-colors duration-200 ${
                       activeIndex === index ? "text-peach-black-70" : "text-peach-black-45"
-                    }`}>
+                    }`} style={{ transitionTimingFunction: easeOut }}>
                       {step.description}
                     </p>
                   </div>
