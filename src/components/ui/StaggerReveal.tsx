@@ -14,14 +14,16 @@ interface StaggerRevealProps {
   role?: string;
 }
 
+const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)";
+
 export function StaggerReveal({
   children,
   delay = 0,
   duration = 300,
   className = "",
   tag = "div",
-  threshold = 0.1,
-  rootMargin = "0px",
+  threshold = 0.2,
+  rootMargin = "-10% 0px",
   once = true,
   role,
 }: StaggerRevealProps) {
@@ -67,7 +69,7 @@ export function StaggerReveal({
       {childArray.map((child, index) => {
         if (!React.isValidElement(child)) return child;
 
-        const childDelay = delay + index * 50;
+        const childDelay = delay + index * 60;
         const childDuration = duration;
 
         return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
@@ -75,7 +77,7 @@ export function StaggerReveal({
             ...((child.props as Record<string, unknown>).style as React.CSSProperties || {}),
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(8px)",
-            transition: `opacity ${childDuration}ms cubic-bezier(0.23, 1, 0.32, 1), transform ${childDuration}ms cubic-bezier(0.23, 1, 0.32, 1)`,
+            transition: `opacity ${childDuration}ms ${easeOut}, transform ${childDuration}ms ${easeOut}`,
             transitionDelay: `${childDelay}ms`,
           },
         });

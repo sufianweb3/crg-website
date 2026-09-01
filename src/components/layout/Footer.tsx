@@ -2,65 +2,51 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-peach-black text-azure-mist section-padding pt-16" role="contentinfo">
+    <footer className="bg-peach-black text-azure-mist" role="contentinfo">
       <div className="section-container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          <div className="lg:col-span-1">
-            <Link href="/" className="block mb-6" aria-label="CRG Attire Home">
-              <img
-                src="/assets/logo/logo.png"
-                alt="CRG Attire Logo"
-                className="h-10 w-auto"
-                width="160"
-                height="40"
-              />
-            </Link>
-            <p className="text-azure-mist/60 body-text max-w-xs">
-              Fully integrated apparel manufacturer, designer, and exporter based in Bangladesh since 1996.
-            </p>
-          </div>
+        <div className="py-12 border-b border-azure-mist/20">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            <div className="flex-shrink-0">
+              <Link href="/" className="block" aria-label="CRG Attire Home">
+                <img
+                  src="/assets/logo/logo.png"
+                  alt="CRG Attire Logo"
+                  className="h-10 w-auto"
+                  width="160"
+                  height="40"
+                />
+              </Link>
+              <p className="text-azure-mist/60 body-text max-w-xs mt-4">
+                Fully integrated apparel manufacturer, designer, and exporter based in Bangladesh since 1996.
+              </p>
+            </div>
 
-          <nav aria-label="Company links">
-            <h3 className="section-label text-azure-mist mb-4">Company</h3>
-            <ul className="space-y-3 font-mono text-sm">
-              <li><Link href="/#about" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">About Us</Link></li>
-              <li><Link href="/message-from-team" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Message From Team</Link></li>
-              <li><Link href="/#services" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Services</Link></li>
-              <li><Link href="/#sustainability" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Sustainability</Link></li>
-            </ul>
-          </nav>
+            <nav className="flex flex-wrap gap-8 font-mono text-sm" aria-label="Footer navigation">
+              <Link href="/#about" className="text-azure-mist/70 hover:text-azure-mist transition-colors duration-160 underline-draw">About</Link>
+              <Link href="/#services" className="text-azure-mist/70 hover:text-azure-mist transition-colors duration-160 underline-draw">Services</Link>
+              <Link href="/products-library" className="text-azure-mist/70 hover:text-azure-mist transition-colors duration-160 underline-draw">Products</Link>
+              <Link href="/#how-it-works" className="text-azure-mist/70 hover:text-azure-mist transition-colors duration-160 underline-draw">Process</Link>
+              <Link href="/#sustainability" className="text-azure-mist/70 hover:text-azure-mist transition-colors duration-160 underline-draw">Sustainability</Link>
+              <Link href="/get-quote" className="text-azure-mist/70 hover:text-azure-mist transition-colors duration-160 underline-draw">Contact</Link>
+            </nav>
 
-          <nav aria-label="Products links">
-            <h3 className="section-label text-azure-mist mb-4">Products</h3>
-            <ul className="space-y-3 font-mono text-sm">
-              <li><Link href="/products-library?category=knit-sportswear" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Knit Garments & Sportswear</Link></li>
-              <li><Link href="/products-library?category=sweaters-flat-knit" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Sweaters & Flat Knit</Link></li>
-              <li><Link href="/products-library?category=woven-denim" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Woven & Denim</Link></li>
-              <li><Link href="/products-library?category=uniforms-protective" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">Uniforms & Protective Wear</Link></li>
-              <li><Link href="/products-library" className="text-azure-mist/70 hover:text-azure-mist transition-colors underline-draw">All Products</Link></li>
-            </ul>
-          </nav>
-
-          <div>
-            <h3 className="section-label text-azure-mist mb-4">Contact</h3>
-            <address className="not-italic body-text text-azure-mist/70 space-y-2 font-mono text-sm">
-              <p>Bangladesh</p>
-              <p>Email: <a href="mailto:info@crgattire.com" className="underline-draw hover:text-azure-mist">info@crgattire.com</a></p>
-              <p>Phone: <a href="tel:+880XXXXXXXXXX" className="underline-draw hover:text-azure-mist">+880 XXXX XXXXXX</a></p>
-            </address>
-            <div className="mt-8 flex gap-6">
-              <a href="/get-quote" className="btn-primary text-sm px-6 py-3">Get Your Quote</a>
+            <div className="flex items-center gap-4 text-azure-mist/45 font-mono text-xs uppercase tracking-wider">
+              <span>Accord</span>
+              <span className="w-1 h-1 rounded-full bg-azure-mist/30" aria-hidden="true" />
+              <span>Alliance</span>
+              <span className="w-1 h-1 rounded-full bg-azure-mist/30" aria-hidden="true" />
+              <span>Sedex</span>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-hairline flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-azure-mist/45 font-mono text-sm">
             &copy; {new Date().getFullYear()} CRG Attire. All rights reserved.
           </p>
           <div className="flex items-center gap-6 font-mono text-sm text-azure-mist/45">
-            <Link href="/privacy" className="underline-draw hover:text-azure-mist/70 transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="underline-draw hover:text-azure-mist/70 transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="underline-draw hover:text-azure-mist/70 transition-colors">Privacy</Link>
+            <Link href="/terms" className="underline-draw hover:text-azure-mist/70 transition-colors">Terms</Link>
           </div>
         </div>
       </div>

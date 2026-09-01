@@ -7,13 +7,17 @@ interface Certification {
   id: string;
   name: string;
   description: string;
+  isAnchor?: boolean;
+  defaultExpanded?: boolean;
 }
 
 const certifications: Certification[] = [
   {
     id: "accord",
     name: "Accord",
-    description: "Legally binding agreement ensuring fire, electrical, and structural safety in garment factories.",
+    description: "Legally binding agreement ensuring fire, electrical, and structural safety in garment factories. Covers building integrity, fire safety, and electrical safety across all supplier factories.",
+    isAnchor: true,
+    defaultExpanded: true,
   },
   {
     id: "alliance",
@@ -32,10 +36,15 @@ const certifications: Certification[] = [
   },
 ];
 
-const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export function Sustainability() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(
+    certifications.find((c) => c.defaultExpanded)?.id || null
+  );
+
+  const anchorCert = certifications.find((c) => c.isAnchor);
+  const otherCerts = certifications.filter((c) => !c.isAnchor);
 
   return (
     <section className="section-padding bg-azure-mist" aria-labelledby="sustainability-heading">
@@ -53,25 +62,25 @@ export function Sustainability() {
           </p>
         </StaggerReveal>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
-          {certifications.map((cert, index) => (
-            <StaggerReveal key={cert.id} delay={100 + index * 50} duration={300} tag="article" className="group hairline-border relative overflow-hidden" role="listitem">
+        <div className="mt-16 grid gap-6 lg:grid-cols-3" role="list">
+          {anchorCert && (
+            <StaggerReveal key={anchorCert.id} delay={100} duration={300} tag="article" className="group hairline-border relative overflow-hidden corner-bracket lg:col-span-2" role="listitem">
               <button
                 type="button"
                 className="w-full p-6 lg:p-8 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist"
-                onClick={() => setExpandedId(expandedId === cert.id ? null : cert.id)}
-                aria-expanded={expandedId === cert.id}
-                aria-controls={`${cert.id}-desc`}
+                onClick={() => setExpandedId(expandedId === anchorCert.id ? null : anchorCert.id)}
+                aria-expanded={expandedId === anchorCert.id}
+                aria-controls={`${anchorCert.id}-desc`}
               >
-                <h3 className="text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] text-peach-black mb-4">
-                  {cert.name}
+                <h3 className="text-[clamp(24px,3vw,32px)] font-medium leading-[1.2] text-peach-black mb-4">
+                  {anchorCert.name}
                 </h3>
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-sm font-medium text-peach-black-45 transition-colors duration-160" style={{ transitionTimingFunction: easeOut }}>
                     View Details
                   </span>
                   <svg
-                    className={`w-5 h-5 flex-shrink-0 ml-4 text-peach-black-45 transition-transform duration-200 ${expandedId === cert.id ? "rotate-180" : ""}`}
+                    className={`w-5 h-5 flex-shrink-0 ml-4 text-peach-black-45 transition-transform duration-200 ${expandedId === anchorCert.id ? "rotate-180" : ""}`}
                     style={{ transitionTimingFunction: easeOut }}
                     viewBox="0 0 24 24"
                     fill="none"
@@ -85,29 +94,79 @@ export function Sustainability() {
               </button>
 
               <div
-                id={`${cert.id}-desc`}
+                id={`${anchorCert.id}-desc`}
                 role="region"
-                aria-labelledby={`${cert.id}-trigger`}
+                aria-labelledby={`${anchorCert.id}-trigger`}
                 className="overflow-hidden bg-peach-black/5"
                 style={{
-                  maxHeight: expandedId === cert.id ? "200px" : "0",
-                  opacity: expandedId === cert.id ? 1 : 0,
+                  maxHeight: expandedId === anchorCert.id ? "300px" : "0",
+                  opacity: expandedId === anchorCert.id ? 1 : 0,
                   transition: `max-height 200ms ${easeOut}, opacity 200ms ${easeOut}`,
                 }}
               >
                 <p className="px-6 pb-6 body-text text-peach-black-70">
-                  {cert.description}
+                  {anchorCert.description}
                 </p>
               </div>
             </StaggerReveal>
-          ))}
+          )}
+
+          <div className="space-y-6" role="list">
+            {otherCerts.map((cert, index) => (
+              <StaggerReveal key={cert.id} delay={160 + index * 60} duration={300} tag="article" className="group hairline-border relative overflow-hidden corner-bracket" role="listitem">
+                <button
+                  type="button"
+                  className="w-full p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist"
+                  onClick={() => setExpandedId(expandedId === cert.id ? null : cert.id)}
+                  aria-expanded={expandedId === cert.id}
+                  aria-controls={`${cert.id}-desc`}
+                >
+                  <h3 className="text-[clamp(18px,2vw,22px)] font-medium leading-[1.2] text-peach-black mb-2">
+                    {cert.name}
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-sm font-medium text-peach-black-45 transition-colors duration-160" style={{ transitionTimingFunction: easeOut }}>
+                      View Details
+                    </span>
+                    <svg
+                      className={`w-4 h-4 flex-shrink-0 ml-4 text-peach-black-45 transition-transform duration-200 ${expandedId === cert.id ? "rotate-180" : ""}`}
+                      style={{ transitionTimingFunction: easeOut }}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </div>
+                </button>
+
+                <div
+                  id={`${cert.id}-desc`}
+                  role="region"
+                  aria-labelledby={`${cert.id}-trigger`}
+                  className="overflow-hidden bg-peach-black/5"
+                  style={{
+                    maxHeight: expandedId === cert.id ? "200px" : "0",
+                    opacity: expandedId === cert.id ? 1 : 0,
+                    transition: `max-height 200ms ${easeOut}, opacity 200ms ${easeOut}`,
+                  }}
+                >
+                  <p className="px-6 pb-6 body-text text-peach-black-70">
+                    {cert.description}
+                  </p>
+                </div>
+              </StaggerReveal>
+            ))}
+          </div>
         </div>
 
         <div className="mt-16 p-8 border border-hairline">
-          <StaggerReveal delay={300} duration={300} tag="div" className="max-w-3xl">
+          <StaggerReveal delay={400} duration={300} tag="div" className="max-w-3xl">
             <p className="section-label mb-4">Impact Metrics</p>
             <p className="body-text text-peach-black-70">
-              Specific waste, water, and energy reduction figures will be published here once verified. [Placeholder for measurable sustainability data]
+              Specific waste, water, and energy reduction figures will be published here once verified.
             </p>
           </StaggerReveal>
         </div>

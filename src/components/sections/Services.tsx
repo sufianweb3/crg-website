@@ -9,7 +9,8 @@ interface ServicePanel {
   tagline: string;
   description: string;
   features: string[];
-  isLarge?: boolean;
+  isAnchor?: boolean;
+  defaultExpanded?: boolean;
 }
 
 const services: ServicePanel[] = [
@@ -34,7 +35,6 @@ const services: ServicePanel[] = [
     features: [
       "Proto, fit, and pre-production samples",
       "Revisions based on fit feedback",
-      "[X]-day average sample turnaround",
     ],
   },
   {
@@ -44,10 +44,11 @@ const services: ServicePanel[] = [
     description: "In-house cutting, sewing, and finishing.",
     features: [
       "In-house cutting, sewing, and finishing",
-      "[X] production lines, [X] units monthly capacity",
+      "Production lines and capacity",
       "Categories: knitwear, wovens, denim, activewear, outerwear, uniforms",
     ],
-    isLarge: true,
+    isAnchor: true,
+    defaultExpanded: true,
   },
   {
     id: "sourcing",
@@ -71,7 +72,8 @@ const services: ServicePanel[] = [
       "AQL-based sampling checks",
       "Compliance with Accord, Alliance, Sedex and additional certifications",
     ],
-    isLarge: true,
+    isAnchor: true,
+    defaultExpanded: true,
   },
   {
     id: "logistics-export",
@@ -87,10 +89,12 @@ const services: ServicePanel[] = [
   },
 ];
 
-const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export function Services() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(
+    services.find((s) => s.defaultExpanded)?.id || null
+  );
 
   return (
     <section className="section-padding bg-azure-mist" aria-labelledby="services-heading">
@@ -105,19 +109,27 @@ export function Services() {
           </p>
         </StaggerReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16" role="list">
+        <div
+          className="mt-16 grid gap-6"
+          style={{ gridTemplateColumns: "repeat(6, 1fr)" }}
+          role="list"
+        >
           {services.map((service, index) => (
-            <StaggerReveal key={service.id} delay={index * 50} duration={300} tag="article" className="hairline-border rounded-none relative group" role="listitem">
+            <StaggerReveal
+              key={service.id}
+              delay={index * 60}
+              duration={300}
+              tag="article"
+              className={`hairline-border relative group corner-bracket ${
+                service.isAnchor ? "col-span-3" : "col-span-2"
+              }`}
+              role="listitem"
+            >
               <div className="p-6 lg:p-8 relative">
-                <div className="absolute top-4 right-4 w-12 h-12 border border-hairline opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ transitionTimingFunction: easeOut }} aria-hidden="true">
-                  <svg className="w-full h-full text-peach-black-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M4 4h16v16H4z" />
-                    <path d="M4 4l16 16" />
-                  </svg>
-                </div>
-
                 <p className="section-label mb-2">{service.tagline}</p>
-                <h3 className="text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] text-peach-black mb-4">
+                <h3 className={`font-medium leading-[1.2] text-peach-black mb-4 ${
+                  service.isAnchor ? "text-[clamp(24px,3vw,32px)]" : "text-[clamp(20px,2.5vw,28px)]"
+                }`}>
                   {service.title}
                 </h3>
                 <p className="body-text text-peach-black-70 mb-6">{service.description}</p>

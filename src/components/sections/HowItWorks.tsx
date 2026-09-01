@@ -13,7 +13,7 @@ const steps: Step[] = [
   {
     number: "01",
     title: "Inquiry",
-    description: "Share your designs, target quantities, and timeline. We respond within [24-48] hours.",
+    description: "Share your designs, target quantities, and timeline. We respond within 24-48 hours.",
   },
   {
     number: "02",
@@ -42,7 +42,7 @@ const steps: Step[] = [
   },
 ];
 
-const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -102,38 +102,24 @@ export function HowItWorks() {
             </p>
           </StaggerReveal>
 
-          <div className="mt-16 space-y-8" role="list">
+          <div className="mt-16 space-y-0" role="list">
             {steps.map((step, index) => (
-              <StaggerReveal key={step.number} delay={index * 50} duration={300} tag="article" className="group relative pl-12 pb-12 last:pb-0" role="listitem">
-                <div className="absolute left-0 top-0">
-                  <div
-                    className={`font-mono font-medium text-[clamp(40px,6vw,80px)] leading-none transition-all duration-200 ${
-                      activeIndex === index ? "text-peach-black scale-110" : "text-peach-black-45"
+              <StaggerReveal key={step.number} delay={index * 60} duration={300} tag="article" className="border-b border-hairline last:border-b-0 py-8" role="listitem">
+                <div className="flex items-start gap-6 lg:gap-12">
+                  <span
+                    className={`font-mono font-medium text-[clamp(48px,6vw,80px)] leading-none transition-all duration-200 flex-shrink-0 ${
+                      activeIndex === index ? "text-peach-black" : "text-peach-black-45"
                     }`}
                     style={{ transitionTimingFunction: easeOut }}
-                    aria-hidden="true"
                   >
                     {step.number}
+                  </span>
+                  <div className="pt-2">
+                    <h3 className="text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] text-peach-black mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="body-text text-peach-black-70">{step.description}</p>
                   </div>
-                  <div className="absolute left-[1.2em] top-[0.8em] bottom-0 w-px bg-hairline" aria-hidden="true">
-                    {index < steps.length - 1 && (
-                      <div
-                        className="absolute top-0 h-full w-full bg-peach-black transition-all duration-200 origin-top"
-                        style={{
-                          transform: `scaleY(${activeIndex > index ? 1 : 0})`,
-                          transformOrigin: "top",
-                          transitionTimingFunction: easeOut,
-                        }}
-                        aria-hidden="true"
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] text-peach-black mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="body-text text-peach-black-70">{step.description}</p>
                 </div>
               </StaggerReveal>
             ))}
@@ -158,43 +144,36 @@ export function HowItWorks() {
 
         <div
           ref={containerRef}
-          className="relative mt-16 h-[60vh] min-h-[400px] max-h-[600px]"
+          className="mt-16"
           role="list"
           aria-label="Process steps"
         >
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-hairline -translate-x-1/2" aria-hidden="true" />
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-peach-black transform translate-y-[-50%]" aria-hidden="true" />
-          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-4 h-4 rounded-full bg-peach-black transform translate-y-[50%]" aria-hidden="true" />
-
-          <div className="flex items-start justify-between h-full px-4" style={{ transform: "translateX(-50%)", marginLeft: "50%" }}>
-            {steps.map((step, index) => (
-              <StaggerReveal key={step.number} delay={index * 50} duration={300} tag="article" className="w-full px-4 relative" role="listitem">
-                <div className="text-center">
-                  <div
-                    className={`font-mono font-medium text-[clamp(40px,6vw,80px)] leading-none transition-all duration-200 mx-auto mb-4 ${
-                      activeIndex === index ? "text-peach-black scale-110" : "text-peach-black-45"
-                    }`}
-                    style={{ transitionTimingFunction: easeOut }}
-                    aria-hidden="true"
-                  >
-                    {step.number}
-                  </div>
-                  <div className="max-w-xs mx-auto">
-                    <h3 className={`text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] transition-colors duration-200 ${
-                      activeIndex === index ? "text-peach-black" : "text-peach-black-45"
-                    }`} style={{ transitionTimingFunction: easeOut }}>
-                      {step.title}
-                    </h3>
-                    <p className={`body-text mt-2 transition-colors duration-200 ${
-                      activeIndex === index ? "text-peach-black-70" : "text-peach-black-45"
-                    }`} style={{ transitionTimingFunction: easeOut }}>
-                      {step.description}
-                    </p>
-                  </div>
+          {steps.map((step, index) => (
+            <StaggerReveal key={step.number} delay={index * 60} duration={300} tag="article" className="border-b border-hairline last:border-b-0 py-8 lg:py-10" role="listitem">
+              <div className="flex items-start gap-6 lg:gap-12">
+                <span
+                  className={`font-mono font-medium text-[clamp(48px,6vw,80px)] leading-none transition-all duration-200 flex-shrink-0 ${
+                    activeIndex === index ? "text-peach-black stamp-enter" : "text-peach-black-45"
+                  }`}
+                  style={{ transitionTimingFunction: easeOut }}
+                >
+                  {step.number}
+                </span>
+                <div className="pt-2">
+                  <h3 className={`text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] transition-colors duration-200 ${
+                    activeIndex === index ? "text-peach-black" : "text-peach-black-45"
+                  }`} style={{ transitionTimingFunction: easeOut }}>
+                    {step.title}
+                  </h3>
+                  <p className={`body-text mt-2 transition-colors duration-200 ${
+                    activeIndex === index ? "text-peach-black-70" : "text-peach-black-45"
+                  }`} style={{ transitionTimingFunction: easeOut }}>
+                    {step.description}
+                  </p>
                 </div>
-              </StaggerReveal>
-            ))}
-          </div>
+              </div>
+            </StaggerReveal>
+          ))}
         </div>
       </div>
     </section>

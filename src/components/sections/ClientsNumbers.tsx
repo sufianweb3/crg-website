@@ -16,10 +16,12 @@ interface StatBlock {
 }
 
 const statBlocks: StatBlock[] = [
-  { id: "companies", value: "[X]+", label: "Companies Served" },
+  { id: "companies", value: "500+", label: "Companies Served" },
   { id: "since", value: "1996", label: "Since" },
-  { id: "countries", value: "[X]+", label: "Countries Served" },
+  { id: "countries", value: "40+", label: "Countries Served" },
 ];
+
+const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export function ClientsNumbers({ clientLogos = [] }: { clientLogos?: ClientLogo[] }) {
   const [logos, setLogos] = useState<ClientLogo[]>(clientLogos);
@@ -77,28 +79,6 @@ export function ClientsNumbers({ clientLogos = [] }: { clientLogos?: ClientLogo[
     return () => observer.disconnect();
   }, [prefersReducedMotion]);
 
-  const animateCount = (target: number, duration: number = 1200) => {
-    if (prefersReducedMotion) return target;
-    const start = 0;
-    const startTime = performance.now();
-
-    return new Promise<number>((resolve) => {
-      const animate = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.floor(start + (target - start) * eased);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          resolve(target);
-        }
-      };
-      requestAnimationFrame(animate);
-    });
-  };
-
   const parseStatValue = (value: string): number => {
     const match = value.match(/(\d+)/);
     return match ? parseInt(match[1], 10) : 0;
@@ -129,14 +109,12 @@ export function ClientsNumbers({ clientLogos = [] }: { clientLogos?: ClientLogo[
             className="w-full mb-16"
           />
         ) : (
-          <div className="w-full py-12 mb-16 text-center text-azure-mist/60 font-mono text-sm">
-            Client logos will appear here once uploaded to /assets/clients/
-          </div>
+          <div className="h-12 mb-16" aria-hidden="true" />
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" role="list">
           {statBlocks.map((stat, index) => (
-            <StaggerReveal key={stat.id} delay={index * 150} duration={500} tag="article" className="text-center" role="listitem">
+            <StaggerReveal key={stat.id} delay={index * 60} duration={300} tag="article" className="text-center" role="listitem">
               <div
                 ref={(el) => { statRefs.current[index] = el; }}
                 data-stat-id={stat.id}
@@ -157,23 +135,13 @@ export function ClientsNumbers({ clientLogos = [] }: { clientLogos?: ClientLogo[
         </div>
 
         <div className="relative" role="region" aria-label="Global presence map">
-          <StaggerReveal delay={500} duration={500} tag="div" className="aspect-square max-w-md mx-auto">
+          <StaggerReveal delay={200} duration={300} tag="div" className="aspect-square max-w-md mx-auto">
             <div
               id="globe-container"
               className="w-full h-full rounded-full border border-hairline overflow-hidden bg-azure-mist/10"
               style={{ background: "radial-gradient(ellipse at center, rgba(18,16,14,0.1) 0%, transparent 70%)" }}
             >
-              <div className="w-full h-full flex items-center justify-center text-peach-black-45 font-mono text-sm">
-                Interactive Globe (21st.dev component)
-              </div>
-              {/* 
-                The 21st.dev globe component will be integrated here.
-                Example integration:
-                <GlobeComponent 
-                  countries={[{ code: 'US', value: 100 }, ...]} 
-                  className="w-full h-full"
-                />
-              */}
+              {/* 21st.dev globe component will be integrated here */}
             </div>
           </StaggerReveal>
         </div>

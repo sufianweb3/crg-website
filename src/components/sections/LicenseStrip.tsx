@@ -25,41 +25,28 @@ export function LicenseStrip({ logos }: LicenseStripProps) {
     loadLogos();
   }, []);
 
-  if (licenseLogos.length === 0) {
-    return (
-      <section className="section-padding bg-peach-black" aria-labelledby="license-heading">
-        <div className="section-container">
-          <div className="flex items-center gap-6 flex-wrap">
-            <h2 id="license-heading" className="section-label text-azure-mist flex-shrink-0">
-              Licenses:
-            </h2>
-            <p className="text-azure-mist/60 font-mono text-sm">
-              Certification logos will appear here once uploaded to /assets/license/
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="section-padding bg-peach-black" aria-labelledby="license-heading">
+    <section className="py-8 bg-peach-black" aria-labelledby="license-heading">
       <div className="section-container">
-        <div className="flex items-center gap-6 flex-wrap mb-8">
+        <div className="flex items-center gap-6 flex-wrap mb-6">
           <h2 id="license-heading" className="section-label text-azure-mist flex-shrink-0">
             Licenses:
           </h2>
         </div>
-        <Marquee
-          items={licenseLogos.map((logo) => ({
-            src: logo.src,
-            alt: logo.alt,
-            height: 60,
-          }))}
-          speed={40}
-          direction="left"
-          className="w-full"
-        />
+        {licenseLogos.length > 0 ? (
+          <Marquee
+            items={licenseLogos.map((logo) => ({
+              src: logo.src,
+              alt: logo.alt,
+              height: 60,
+            }))}
+            speed={40}
+            direction="left"
+            className="w-full"
+          />
+        ) : (
+          <div className="h-16" aria-hidden="true" />
+        )}
       </div>
     </section>
   );

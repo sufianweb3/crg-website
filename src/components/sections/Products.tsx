@@ -5,39 +5,39 @@ import Link from "next/link";
 
 interface ProductCategory {
   id: string;
+  index: string;
   name: string;
   description: string;
-  itemCount: string;
 }
 
 const categories: ProductCategory[] = [
   {
     id: "knit-sportswear",
+    index: "01/04",
     name: "Knit Garments & Sportswear",
     description: "Performance-driven knitwear and activewear manufactured to precise technical specifications.",
-    itemCount: "[X] styles",
   },
   {
     id: "sweaters-flat-knit",
+    index: "02/04",
     name: "Sweaters & Flat Knit",
     description: "Fine-gauge and heavy-gauge flat knit sweaters with complex stitch programming and finishing.",
-    itemCount: "[X] styles",
   },
   {
     id: "woven-denim",
+    index: "03/04",
     name: "Woven & Denim",
     description: "Structured wovens and authentic denim with advanced wash and finishing capabilities.",
-    itemCount: "[X] styles",
   },
   {
     id: "uniforms-protective",
+    index: "04/04",
     name: "Uniforms & Protective Wear",
     description: "Workwear, corporate uniforms, and certified protective garments meeting international standards.",
-    itemCount: "[X] styles",
   },
 ];
 
-const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+const easeOut = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export function Products() {
   return (
@@ -53,37 +53,64 @@ export function Products() {
           </p>
         </StaggerReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16" role="list">
-          {categories.map((category, index) => (
-            <StaggerReveal key={category.id} delay={50 + index * 50} duration={300} tag="article" className="group relative hairline-border overflow-hidden" role="listitem">
-              <Link
-                href={`/products-library?category=${category.id}`}
-                className="block p-6 lg:p-8 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist"
-                style={{ transitionTimingFunction: easeOut }}
-              >
-                <div className="relative z-10">
-                  <p className="section-label mb-2">{category.itemCount}</p>
-                  <h3 className="text-[clamp(20px,2.5vw,28px)] font-medium leading-[1.2] text-peach-black mb-4">
-                    {category.name}
-                  </h3>
-                  <p className="body-text text-peach-black-70 mb-6">{category.description}</p>
+        <div className="mt-16" role="list">
+          <div className="grid gap-6" style={{ gridTemplateColumns: "7fr 5fr" }}>
+            {categories.slice(0, 2).map((category, index) => (
+              <StaggerReveal key={category.id} delay={index * 60} duration={300} tag="article" className="group relative hairline-border overflow-hidden corner-bracket" role="listitem">
+                <Link
+                  href={`/products-library?category=${category.id}`}
+                  className="block p-6 lg:p-8 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist h-full"
+                  style={{ transitionTimingFunction: easeOut }}
+                >
+                  <div className="relative z-10">
+                    <span className="font-mono text-sm font-medium text-peach-black-45 block mb-4">{category.index}</span>
+                    <h3 className="text-[clamp(24px,3vw,32px)] font-medium leading-[1.2] text-peach-black mb-4">
+                      {category.name}
+                    </h3>
+                    <p className="body-text text-peach-black-70 mb-6">{category.description}</p>
 
-                  <div className="flex items-center gap-2 font-mono text-sm font-medium text-peach-black-45 transition-colors duration-160 underline-draw" style={{ transitionTimingFunction: easeOut }}>
-                    View Collection
-                    <svg className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" style={{ transitionTimingFunction: easeOut }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+                    <div className="flex items-center gap-2 font-mono text-sm font-medium text-peach-black-45 transition-colors duration-160 underline-draw" style={{ transitionTimingFunction: easeOut }}>
+                      View Collection
+                      <svg className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" style={{ transitionTimingFunction: easeOut }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
-                </div>
+                </Link>
+              </StaggerReveal>
+            ))}
+          </div>
 
-                <div className="absolute bottom-0 right-0 w-24 h-24 border-l border-b border-hairline opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ transitionTimingFunction: easeOut }} aria-hidden="true" />
-              </Link>
-            </StaggerReveal>
-          ))}
+          <div className="grid gap-6 mt-12" style={{ gridTemplateColumns: "5fr 7fr" }}>
+            {categories.slice(2, 4).map((category, index) => (
+              <StaggerReveal key={category.id} delay={120 + index * 60} duration={300} tag="article" className="group relative hairline-border overflow-hidden corner-bracket" role="listitem">
+                <Link
+                  href={`/products-library?category=${category.id}`}
+                  className="block p-6 lg:p-8 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-peach-black focus-visible:ring-offset-2 focus-visible:ring-offset-azure-mist h-full"
+                  style={{ transitionTimingFunction: easeOut }}
+                >
+                  <div className="relative z-10">
+                    <span className="font-mono text-sm font-medium text-peach-black-45 block mb-4">{category.index}</span>
+                    <h3 className="text-[clamp(24px,3vw,32px)] font-medium leading-[1.2] text-peach-black mb-4">
+                      {category.name}
+                    </h3>
+                    <p className="body-text text-peach-black-70 mb-6">{category.description}</p>
+
+                    <div className="flex items-center gap-2 font-mono text-sm font-medium text-peach-black-45 transition-colors duration-160 underline-draw" style={{ transitionTimingFunction: easeOut }}>
+                      View Collection
+                      <svg className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" style={{ transitionTimingFunction: easeOut }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              </StaggerReveal>
+            ))}
+          </div>
         </div>
 
         <div className="mt-16 text-center">
-          <StaggerReveal delay={250} duration={300} tag="div">
+          <StaggerReveal delay={300} duration={300} tag="div">
             <Link
               href="/products-library"
               className="inline-flex items-center gap-2 underline-draw text-peach-black font-medium"

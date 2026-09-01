@@ -5,18 +5,18 @@ import Link from "next/link";
 
 export function AboutUs() {
   return (
-    <section className="section-padding bg-azure-mist" aria-labelledby="about-heading">
-      <div className="section-container">
+    <section className="section-padding bg-azure-mist relative overflow-hidden" aria-labelledby="about-heading">
+      <div className="section-container relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div className="lg:pr-8">
-            <StaggerReveal delay={0} duration={500} tag="div" className="space-y-6">
+            <StaggerReveal delay={0} duration={300} tag="div" className="space-y-6">
               <p className="section-label">About Us</p>
               <h2 id="about-heading" className="text-[clamp(32px,5vw,56px)] font-medium leading-[1.15] text-peach-black">
                 Since 1996, CRG has grown from a trusted buying house into a fully integrated manufacturer, producing, designing and exporting quality garments for fashion brands worldwide.
               </h2>
             </StaggerReveal>
 
-            <StaggerReveal delay={100} duration={500} tag="div" className="mt-10 pt-10 border-t border-hairline">
+            <StaggerReveal delay={60} duration={300} tag="div" className="mt-10 pt-10 border-t border-hairline">
               <Link
                 href="/message-from-team"
                 className="inline-flex items-center gap-2 underline-draw text-peach-black font-medium hover:text-peach-black-70"
@@ -30,13 +30,10 @@ export function AboutUs() {
           </div>
 
           <div className="relative">
-            <StaggerReveal delay={200} duration={500} tag="div" className="relative">
+            <StaggerReveal delay={120} duration={300} tag="div" className="relative">
               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-3/4 bg-hairline hidden lg:block" aria-hidden="true" />
               <div className="pl-8 lg:pl-0">
-                <div className="stat-numeral text-peach-black" style={{ fontSize: "clamp(56px, 8vw, 96px)" }}>
-                  1996
-                </div>
-                <p className="section-label mt-2">Established</p>
+                <p className="section-label mb-2">Established</p>
                 <p className="body-text mt-6 max-w-xs">
                   Nearly three decades of continuous operation, now led by the second generation of the founding family.
                 </p>
@@ -44,6 +41,20 @@ export function AboutUs() {
             </StaggerReveal>
           </div>
         </div>
+      </div>
+
+      <div
+        className="absolute right-0 top-1/2 -translate-y-1/2 font-mono font-bold select-none pointer-events-none"
+        style={{
+          fontSize: "clamp(200px, 25vw, 400px)",
+          lineHeight: 1,
+          color: "transparent",
+          WebkitTextStroke: "1px rgba(18, 16, 14, 0.08)",
+          opacity: 0.8,
+        }}
+        aria-hidden="true"
+      >
+        1996
       </div>
     </section>
   );
